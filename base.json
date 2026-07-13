@@ -1,0 +1,46 @@
+    {
+      "id": "",
+      "status": "incomplete",
+      "name_keys": {
+        "es": "name_es",
+        "en": "name_en",
+        "fr": "name_fr",
+        "de": "name_de",
+        "pt": "name_pt",
+        "it": "name_it"
+      },
+      "max_players": 5,
+      "wagons_official": 45,
+      "train_colors": [
+        "blue",
+        "green",
+        "red",
+        "yellow",
+        "black",
+        "white",
+        "purple"
+      ],
+      "destination_tickets": {
+        "normal": [],
+        "long": [],
+        "long_ticket_limit": null,
+        "ticket_control": false
+      },
+      "scoring_table": {
+        "1": 1,
+        "2": 2,
+        "3": 4,
+        "4": 7,
+        "5": 10,
+        "6": 15,
+        "7": 18,
+        "8": 21,
+        "9": 27
+      },
+      "bonuses": {
+        "longest_route": null,
+        "stations": null,
+        "globetrotter": null,
+        "extra_points": false
+      }
+    }
