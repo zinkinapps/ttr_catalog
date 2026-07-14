@@ -1,14 +1,14 @@
 # TTRacker Catalog
 
-This repository hosts the official game version catalog for **TTRacker**, a score tracking app for Ticket to Ride (Aventureros al Tren).
+This repository hosts the official game version catalog for **TTRacker** — a score tracking app for Ticket to Ride (Aventureros al Tren).
 
-The catalog is a single JSON file (`catalog.json`) that the app download automatically on launch to stay up to date with new game versions and data corrections — no app update required.
+The catalog is a single JSON file (`catalog.json`) that the app downloads automatically on launch to stay up to date with new game versions and data corrections — no app update required.
 
 ---
 
 ## How it works
 
-The app ship with a bundled copy of `catalog.json` as a fallback. On each launch, it attempts to download the latest version from this repository. If the download succeeds, the updated catalog is cached locally. If not, the app uses the last cached version.
+TTRacker ships with a bundled copy of `catalog.json` as a fallback. On each launch, it attempts to download the latest version from this repository. If the download succeeds, the updated catalog is cached locally. If not, the app uses the last cached version.
 
 The `catalog_version` field is used to detect whether an update is available.
 
@@ -18,7 +18,7 @@ The `catalog_version` field is used to detect whether an update is available.
 
 ```json
 {
-  "catalog_version": "1.0",
+  "catalog_version": "2.0",
   "catalog_url": "https://raw.githubusercontent.com/zinkinapps/ttr_catalog/refs/heads/main/catalog.json",
   "readme_url": "https://github.com/zinkinapps/ttr_catalog/blob/main/README.md",
   "versions": [ ... ]
@@ -27,9 +27,9 @@ The `catalog_version` field is used to detect whether an update is available.
 
 | Field | Type | Description |
 |---|---|---|
-| `catalog_version` | string | Semantic version of the catalog. Increment on every change (e.g. `"1.0"` → `"1.1"`). |
-| `catalog_url` | string | Canonical URL where apps fetch the JSON. Do not change this. |
-| `readme_url` | string | URL of this README. Apps use this field to show a link in Settings — do not hardcode any URL in the app. |
+| `catalog_version` | string | Semantic version of the catalog. Increment on every change (e.g. `"2.0"` → `"2.1"`). |
+| `catalog_url` | string | Canonical URL where the app fetches the JSON. Do not change this. |
+| `readme_url` | string | URL of this README. The app uses this field to show a link in Settings — do not hardcode any URL in the app. |
 | `versions` | array | List of game version objects (see below). |
 
 ---
@@ -94,7 +94,7 @@ Some city editions use a piece other than a wagon to claim routes. Those entries
 }
 ```
 
-Omit `piece_name_keys` entirely for versions that use standard wagons — the apps default to "wagon" in all six languages.
+Omit `piece_name_keys` entirely for versions that use standard wagons — the app defaults to "wagon" in all six languages.
 
 ### Fields
 
@@ -104,7 +104,7 @@ Omit `piece_name_keys` entirely for versions that use standard wagons — the ap
 | `name_keys` | object | Display name in each supported language. Include all six keys: `es`, `en`, `fr`, `de`, `pt`, `it`. |
 | `max_players` | integer | Maximum number of players for this version. |
 | `wagons_official` | integer | Number of route-claiming pieces per player, as stated in the rulebook (wagons, taxis, buses, etc. — whatever `piece_name_keys` names them). |
-| `train_colors` | array of strings | Colors available in this version. Use only values from the official palette: `"blue"`, `"green"`, `"red"`, `"yellow"`, `"black"`, `"white"`, `"beige"`, `"purple"`, `"turquoise"`, `"pink"`. Order matters — it determines display order in the app. |
+| `train_colors` | array of strings | Colors available in this version. Use only values from the official palette: `"blue"`, `"green"`, `"red"`, `"yellow"`, `"black"`, `"white"`, `"beige"`, `"purple"`, `"turquoise"`. Order matters — it determines display order in the app. |
 | `destination_tickets.normal` | array of integers | Point value of each normal destination ticket in the deck. Include one entry per physical card (duplicates allowed). |
 | `destination_tickets.long` | array of integers | Point value of each long-distance destination ticket. Use `[]` if the version has none. |
 | `destination_tickets.ticket_control` | boolean | Controls deck limit enforcement for both normal and long-distance tickets. `true`: when the sum of selections of a given value across all players (completed + uncompleted) reaches the count in the array, that value is disabled in the modal for all remaining players. `false`: same modal UI, but no value is ever disabled. Use `false` for versions where you know the point values but not yet the exact per-value card counts. |
@@ -143,7 +143,7 @@ The app displays the status visually on each version's detail screen so users ar
 
 **Set `status` honestly.** `"confirmed"` only if you've personally checked the data against your own physical copy. `"unconfirmed"` for anything sourced secondhand (official manual, BGG). `"incomplete"` when data is known to be missing.
 
-**Use only official color identifiers in `train_colors`.** Valid values: `"blue"`, `"green"`, `"red"`, `"yellow"`, `"black"`, `"white"`, `"beige"`, `"purple"`, `"turquoise"`, `"pink"`. Do not use hex codes — the app maps these identifiers to their visual representation.
+**Use only official color identifiers in `train_colors`.** Valid values: `"blue"`, `"green"`, `"red"`, `"yellow"`, `"black"`, `"white"`, `"beige"`, `"purple"`, `"turquoise"`. Do not use hex codes — the app maps these identifiers to their visual representation. `"pink"` was removed — it was added based on a mistaken forum report; no published physical edition actually uses it.
 
 **IDs are permanent.** Once a version is published and users have played games with it, its `id` must never change. Users' game history references the ID directly. If you need to fix a typo in the name, update `name_keys` — never the `id`.
 
@@ -165,55 +165,55 @@ The app displays the status visually on each version's detail screen so users ar
 | `europe` | Europa / Europe | 2–5 | 2005 | ✅ Confirmed |
 | `marklin` | Märklin | 2–5 | 2006 | ⚠️ Unconfirmed |
 | `nordic_countries` | Países Nórdicos / Nordic Countries | 2–3 | 2007 | ⚠️ Unconfirmed |
-| `deutschland` | Zug um Zug: Deutschland | 2–5 | 2012 | 🚧 Incomplete |
-| `ticket_to_ride_10` | Ticket to Ride: 10th Anniversary | 2–5 | 2015 | 🚧 Incomplete |
-| `rails_sails_the_great_lakes` | Rails & Sails — The Great Lakes | 2–5 | 2016 | 🚧 Incomplete |
-| `rails_sails_the_world` | Rails & Sails — The World | 2–5 | 2016 | 🚧 Incomplete |
-| `germany` | Alemania / Germany | 2–5 | 2017 | 🚧 Incomplete |
-| `europe_15` | Europa: 15º Aniversario / Europe: 15th Anniversary | 2–5 | 2020 | 🚧 Incomplete |
-| `northern_lights` | Northern Lights | 2–5 | 2022 | 🚧 Incomplete |
+| `deutschland` | Zug um Zug: Deutschland / Ticket to Ride: Deutschland | 2–5 | 2012 | ⚠️ Unconfirmed |
+| `rails_sails_the_world` | Rails & Sails - El Mundo / Rails & Sails - The World | 2–5 | 2016 | ⚠️ Unconfirmed |
+| `rails_sails_the_great_lakes` | Rails & Sails - Los Grandes Lagos / Rails & Sails - The Great Lakes | 2–5 | 2016 | ⚠️ Unconfirmed |
+| `germany` | Alemania / Germany | 2–5 | 2017 | ⚠️ Unconfirmed |
+| `northern_lights` | Northern Lights | 2–5 | 2022 | ⚠️ Unconfirmed |
 
 ### Map expansions
 
 | ID | Name | Players | Year | Status |
 |---|---|---|---|---|
 | `switzerland` | Suiza / Switzerland | 2–3 | 2007 | ⚠️ Unconfirmed |
-| `asia` | Asia | 2–3 | 2011 | 🚧 Incomplete |
-| `legendary_asia` | Asia Legendaria / Legendary Asia | 2–5 | 2011 | 🚧 Incomplete |
-| `india` | India | 2–4 | 2011 | 🚧 Incomplete |
-| `switzerland_2011` | Suiza / Switzerland (Map Collection 2) | 2–3 | 2011 | 🚧 Incomplete |
-| `the_heart_of_africa` | El Corazón de África / The Heart of Africa | 2–5 | 2012 | 🚧 Incomplete |
-| `nederland` | Nederland | 2–5 | 2013 | 🚧 Incomplete |
-| `united_kingdom` | Reino Unido / United Kingdom | 2–4 | 2015 | 🚧 Incomplete |
-| `pennsylvania` | Pensilvania / Pennsylvania | 2–5 | 2015 | 🚧 Incomplete |
+| `asia` | Asia | 2–6 | 2011 | ⚠️ Unconfirmed |
+| `legendary_asia` | Asia Legendaria / Legendary Asia | 2–5 | 2011 | ⚠️ Unconfirmed |
+| `india` | India | 2–4 | 2011 | ⚠️ Unconfirmed |
+| `switzerland_2011` | Suiza / Switzerland (Map Collection 2) | 2–3 | 2011 | ⚠️ Unconfirmed |
+| `the_heart_of_africa` | El Corazón de África / The Heart of Africa | 2–5 | 2012 | ⚠️ Unconfirmed |
+| `nederland` | Nederland | 2–5 | 2013 | ⚠️ Unconfirmed |
+| `pennsylvania` | Pensilvania / Pennsylvania | 2–5 | 2015 | ⚠️ Unconfirmed |
+| `united_kingdom` | Reino Unido / United Kingdom | 2–4 | 2015 | ⚠️ Unconfirmed |
+| `old_west` | El Viejo Oeste / Old West | 2–5 | 2017 | ⚠️ Unconfirmed |
 | `france` | Francia / France | 2–5 | 2017 | ⚠️ Unconfirmed |
-| `old_west` | El Viejo Oeste / Old West | 2–6 | 2017 | 🚧 Incomplete |
-| `poland` | Polonia / Poland | 2–4 | 2019 | 🚧 Incomplete |
-| `japan` | Japón / Japan | 2–5 | 2019 | 🚧 Incomplete |
-| `italy` | Italia / Italy | 2–5 | 2019 | 🚧 Incomplete |
+| `italy` | Italia / Italy | 2–5 | 2019 | ⚠️ Unconfirmed |
+| `japan` | Japón / Japan | 2–5 | 2019 | ⚠️ Unconfirmed |
+| `poland` | Polonia / Poland | 2–4 | 2019 | ⚠️ Unconfirmed |
+| `south_korea` | Corea del Sur / South Korea | 2–5 | 2024 | ⚠️ Unconfirmed |
 | `iberia` | Iberia | 2–5 | 2024 | ⚠️ Unconfirmed |
-| `south_korea` | Corea del Sur / South Korea | 2–5 | 2024 | 🚧 Incomplete |
 
 ### Game (card) expansions
 
 | ID | Name | Players | Year | Status |
 |---|---|---|---|---|
-| `usa_1910` | USA 1910 | 2–5 | 2006 | 🚧 Incomplete |
+| `usa_1910` | USA 1910 | 2–5 | 2006 | ⚠️ Unconfirmed |
+| `usa_1910_big_cities` | USA 1910 - Big Cities | 2–5 | 2006 | ⚠️ Unconfirmed |
+| `usa_1910_mega` | USA 1910 - Mega | 2–5 | 2006 | ⚠️ Unconfirmed |
 | `europe_1912` | Europa 1912 / Europe 1912 | 2–5 | 2009 | ⚠️ Unconfirmed |
-| `europe_1912_big_cities` | Europa 1912 — Big Cities | 2–5 | 2009 | ⚠️ Unconfirmed |
-| `europe_1912_mega` | Europa 1912 — Mega | 2–5 | 2009 | ⚠️ Unconfirmed |
-| `deutschland_1902` | Deutschland 1902 | 2–5 | 2015 | 🚧 Incomplete |
+| `europe_1912_big_cities` | Europa 1912 - Big Cities / Europe 1912 - Big Cities | 2–5 | 2009 | ⚠️ Unconfirmed |
+| `europe_1912_mega` | Europa 1912 - Mega / Europe 1912 - Mega | 2–5 | 2009 | ⚠️ Unconfirmed |
+| `deutschland_1912` | Deutschland 1912 | 2–5 | 2015 | ⚠️ Unconfirmed |
 
 ### City editions
 
 | ID | Name | Players | Year | Status |
 |---|---|---|---|---|
 | `new_york` | Nueva York / New York | 2–4 | 2018 | ⚠️ Unconfirmed |
-| `london` | Londres / London | 2–4 | 2019 | 🚧 Incomplete |
+| `london` | Londres / London | 2–4 | 2019 | ⚠️ Unconfirmed |
 | `amsterdam` | Ámsterdam / Amsterdam | 2–4 | 2020 | ⚠️ Unconfirmed |
-| `san_francisco` | San Francisco | 2–4 | 2022 | 🚧 Incomplete |
-| `berlin` | Berlín / Berlin | 2–4 | 2023 | 🚧 Incomplete |
-| `paris` | París / Paris | 2–4 | 2024 | 🚧 Incomplete |
+| `san_francisco` | San Francisco | 2–4 | 2022 | ⚠️ Unconfirmed |
+| `berlin` | Berlín / Berlin | 2–4 | 2023 | ⚠️ Unconfirmed |
+| `paris` | París / Paris | 2–4 | 2024 | ⚠️ Unconfirmed |
 
 **✅ Confirmed** — Verified against a physical copy.
 **⚠️ Unconfirmed** — Sourced from official manuals or BGG, not personally verified.
